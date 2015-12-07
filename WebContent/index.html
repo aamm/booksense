@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Sense</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+</head>
+<body>
+
+	<h1>Book Sense</h1>
+	Compare your books using Watson Personality Insights
+
+	<h2>Add books to the list</h2>
+	Project Gutenberg's ID
+	<input type="text" id="bookId" placeholder="Book ID"> <input type="button" id="newBookButton" value="Add book"> <br>
+	Hint! Book IDs that are known to work: 11, 105, 1400, 2814, 4217, 1228, 2000, 17192, 4078
+	<p id="bookAddResult"></p>
+	Find your book at <a href="http://www.gutenberg.org/">http://www.gutenberg.org/</a>
+
+	<!-- 
+	<table>
+		<tr>
+			<td style='width: 30%;'><img class="newappIcon"
+				src='images/newapp-icon.png'></td>
+			<td>
+				<h1 id="message"></h1>
+				<p class='description'></p> Bla - Thanks for creating a <span
+				class="blue">Liberty for Java Starter Application</span>. Get
+				started by reading our <a
+				href="https://www.ng.bluemix.net/docs/#starters/liberty/index.html#liberty">documentation</a>
+				or use the Start Coding guide under your app in your dashboard.
+			</td>
+		</tr>
+	</table>
+	 -->
+	
+	<br>
+	
+	<h2>Book list</h2>
+	<table id="booksTable">
+		<tr><td><strong>ID</strong></td><td><strong>TITLE</strong></td><td><strong>AUTHOR</strong></td></tr>
+		<tr>
+			<td colspan="3">...</td>
+		</tr>		
+	</table>
+	
+	<br>
+	
+	<h2>Comparison graph</h2>
+	Category A
+	<select id="cat1">
+		<option value="Big 5 - Agreeableness - Openness - Adventurousness">Big 5 - Agreeableness - Openness - Adventurousness</option>
+		<option value="Big 5 - Agreeableness - Openness - Artistic interests">Big 5 - Agreeableness - Openness - Artistic interests</option>
+		<option value="Big 5 - Agreeableness - Openness - Emotionality">Big 5 - Agreeableness - Openness - Emotionality</option>
+		<option value="Big 5 - Agreeableness - Openness - Imagination">Big 5 - Agreeableness - Openness - Imagination</option>
+		<option value="Big 5 - Agreeableness - Openness - Intellect">Big 5 - Agreeableness - Openness - Intellect</option>
+		<option value="Big 5 - Agreeableness - Openness - Liberalism">Big 5 - Agreeableness - Openness - Liberalism</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Achievement striving">Big 5 - Agreeableness - Conscientiousness - Achievement striving</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Cautiousness">Big 5 - Agreeableness - Conscientiousness - Cautiousness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Dutifulness">Big 5 - Agreeableness - Conscientiousness - Dutifulness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Orderliness">Big 5 - Agreeableness - Conscientiousness - Orderliness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Self-discipline">Big 5 - Agreeableness - Conscientiousness - Self-discipline</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Self-efficacy">Big 5 - Agreeableness - Conscientiousness - Self-efficacy</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Activity level">Big 5 - Agreeableness - Extraversion - Activity level</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Assertiveness">Big 5 - Agreeableness - Extraversion - Assertiveness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Cheerfulness">Big 5 - Agreeableness - Extraversion - Cheerfulness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Excitement-seeking">Big 5 - Agreeableness - Extraversion - Excitement-seeking</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Friendliness">Big 5 - Agreeableness - Extraversion - Friendliness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Gregariousness">Big 5 - Agreeableness - Extraversion - Gregariousness</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Altruism">Big 5 - Agreeableness - Agreeableness - Altruism</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Cooperation">Big 5 - Agreeableness - Agreeableness - Cooperation</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Modesty">Big 5 - Agreeableness - Agreeableness - Modesty</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Morality">Big 5 - Agreeableness - Agreeableness - Morality</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Sympathy">Big 5 - Agreeableness - Agreeableness - Sympathy</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Trust">Big 5 - Agreeableness - Agreeableness - Trust</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Fiery">Big 5 - Agreeableness - Emotional range - Fiery</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Prone to worry">Big 5 - Agreeableness - Emotional range - Prone to worry</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Melancholy">Big 5 - Agreeableness - Emotional range - Melancholy</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Immoderation">Big 5 - Agreeableness - Emotional range - Immoderation</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Self-consciousness">Big 5 - Agreeableness - Emotional range - Self-consciousness</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Susceptible to stress">Big 5 - Agreeableness - Emotional range - Susceptible to stress</option>
+		<option value="Needs - Harmony - Challenge">Needs - Harmony - Challenge</option>
+		<option value="Needs - Harmony - Closeness">Needs - Harmony - Closeness</option>
+		<option value="Needs - Harmony - Curiosity">Needs - Harmony - Curiosity</option>
+		<option value="Needs - Harmony - Excitement">Needs - Harmony - Excitement</option>
+		<option value="Needs - Harmony - Harmony">Needs - Harmony - Harmony</option>
+		<option value="Needs - Harmony - Ideal">Needs - Harmony - Ideal</option>
+		<option value="Needs - Harmony - Love">Needs - Harmony - Love</option>
+		<option value="Needs - Harmony - Practicality">Needs - Harmony - Practicality</option>
+		<option value="Needs - Harmony - Self-expression">Needs - Harmony - Self-expression</option>
+		<option value="Needs - Harmony - Stability">Needs - Harmony - Stability</option>
+		<option value="Needs - Harmony - Structure">Needs - Harmony - Structure</option>
+		<option value="Values - Self-transcendence - Conservation">Values - Self-transcendence - Conservation</option>
+		<option value="Values - Self-transcendence - Openness to change">Values - Self-transcendence - Openness to change</option>
+		<option value="Values - Self-transcendence - Hedonism">Values - Self-transcendence - Hedonism</option>
+		<option value="Values - Self-transcendence - Self-enhancement">Values - Self-transcendence - Self-enhancement</option>
+		<option value="Values - Self-transcendence - Self-transcendence">Values - Self-transcendence - Self-transcendence</option>
+	</select>
+	<br>
+	Category B
+	<select id="cat2">
+		<option value="Big 5 - Agreeableness - Openness - Adventurousness">Big 5 - Agreeableness - Openness - Adventurousness</option>
+		<option value="Big 5 - Agreeableness - Openness - Artistic interests">Big 5 - Agreeableness - Openness - Artistic interests</option>
+		<option value="Big 5 - Agreeableness - Openness - Emotionality">Big 5 - Agreeableness - Openness - Emotionality</option>
+		<option value="Big 5 - Agreeableness - Openness - Imagination">Big 5 - Agreeableness - Openness - Imagination</option>
+		<option value="Big 5 - Agreeableness - Openness - Intellect">Big 5 - Agreeableness - Openness - Intellect</option>
+		<option value="Big 5 - Agreeableness - Openness - Liberalism">Big 5 - Agreeableness - Openness - Liberalism</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Achievement striving">Big 5 - Agreeableness - Conscientiousness - Achievement striving</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Cautiousness">Big 5 - Agreeableness - Conscientiousness - Cautiousness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Dutifulness">Big 5 - Agreeableness - Conscientiousness - Dutifulness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Orderliness">Big 5 - Agreeableness - Conscientiousness - Orderliness</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Self-discipline">Big 5 - Agreeableness - Conscientiousness - Self-discipline</option>
+		<option value="Big 5 - Agreeableness - Conscientiousness - Self-efficacy">Big 5 - Agreeableness - Conscientiousness - Self-efficacy</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Activity level">Big 5 - Agreeableness - Extraversion - Activity level</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Assertiveness">Big 5 - Agreeableness - Extraversion - Assertiveness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Cheerfulness">Big 5 - Agreeableness - Extraversion - Cheerfulness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Excitement-seeking">Big 5 - Agreeableness - Extraversion - Excitement-seeking</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Friendliness">Big 5 - Agreeableness - Extraversion - Friendliness</option>
+		<option value="Big 5 - Agreeableness - Extraversion - Gregariousness">Big 5 - Agreeableness - Extraversion - Gregariousness</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Altruism">Big 5 - Agreeableness - Agreeableness - Altruism</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Cooperation">Big 5 - Agreeableness - Agreeableness - Cooperation</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Modesty">Big 5 - Agreeableness - Agreeableness - Modesty</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Morality">Big 5 - Agreeableness - Agreeableness - Morality</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Sympathy">Big 5 - Agreeableness - Agreeableness - Sympathy</option>
+		<option value="Big 5 - Agreeableness - Agreeableness - Trust">Big 5 - Agreeableness - Agreeableness - Trust</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Fiery">Big 5 - Agreeableness - Emotional range - Fiery</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Prone to worry">Big 5 - Agreeableness - Emotional range - Prone to worry</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Melancholy">Big 5 - Agreeableness - Emotional range - Melancholy</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Immoderation">Big 5 - Agreeableness - Emotional range - Immoderation</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Self-consciousness">Big 5 - Agreeableness - Emotional range - Self-consciousness</option>
+		<option value="Big 5 - Agreeableness - Emotional range - Susceptible to stress">Big 5 - Agreeableness - Emotional range - Susceptible to stress</option>
+		<option value="Needs - Harmony - Challenge">Needs - Harmony - Challenge</option>
+		<option value="Needs - Harmony - Closeness">Needs - Harmony - Closeness</option>
+		<option value="Needs - Harmony - Curiosity">Needs - Harmony - Curiosity</option>
+		<option value="Needs - Harmony - Excitement">Needs - Harmony - Excitement</option>
+		<option value="Needs - Harmony - Harmony">Needs - Harmony - Harmony</option>
+		<option value="Needs - Harmony - Ideal">Needs - Harmony - Ideal</option>
+		<option value="Needs - Harmony - Love">Needs - Harmony - Love</option>
+		<option value="Needs - Harmony - Practicality">Needs - Harmony - Practicality</option>
+		<option value="Needs - Harmony - Self-expression">Needs - Harmony - Self-expression</option>
+		<option value="Needs - Harmony - Stability">Needs - Harmony - Stability</option>
+		<option value="Needs - Harmony - Structure">Needs - Harmony - Structure</option>
+		<option value="Values - Self-transcendence - Conservation">Values - Self-transcendence - Conservation</option>
+		<option value="Values - Self-transcendence - Openness to change">Values - Self-transcendence - Openness to change</option>
+		<option value="Values - Self-transcendence - Hedonism">Values - Self-transcendence - Hedonism</option>
+		<option value="Values - Self-transcendence - Self-enhancement">Values - Self-transcendence - Self-enhancement</option>
+		<option value="Values - Self-transcendence - Self-transcendence">Values - Self-transcendence - Self-transcendence</option>
+	</select>
+	<br>
+	<canvas id="plotCanvas" width="800" height="600"></canvas>
+
+	<h2>Cleanup</h2>
+	Press the following button to reset all data on the server.
+	<input type="button" id="resetBookButton" value="Reset all data"> <br>
+	<br>
+	<br>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
